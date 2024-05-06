@@ -1140,7 +1140,12 @@ static void serialxr_timeout(unsigned long data)
     iir = serial_in(up, UART_IIR);
     if (!(iir & UART_IIR_NO_INT))
         serialxr_handle_port(up);
-    mod_timer(&up->timer, jiffies + poll_timeout(up->port.timeout));
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 0, 0)
+    int timeout = up->port.frame_time * up->port.fifosize / (1000000000 / HZ);
+#else
+    int timeout = up->port.timeout;
+#endif
+    mod_timer(&up->timer, jiffies + poll_timeout(timeout));
 }
 
 #define BOTH_EMPTY (UART_LSR_TEMT | UART_LSR_THRE)
