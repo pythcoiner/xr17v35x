@@ -31,7 +31,7 @@
 *	   date   	: July 2019
 *	   version	: 2.6 
 *	 Note: XR_17v35x_UART_RHR was not defined. Fixed  
-*	Check Release Notes for information on what has changed in the new version.
+*	Check commit history for information on what has changed in the new version.
 *
 */
 
