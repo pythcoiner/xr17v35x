@@ -1550,8 +1550,12 @@ serialxr_set_special_baudrate(struct uart_port *port, unsigned int special_baudr
 }
 
 static void
-serialxr_set_termios(struct uart_port *port, struct ktermios *termios,
-                     struct ktermios *old) {
+#if LINUX_VERSION_CODE > KERNEL_VERSION(6, 1, 0)
+serialxr_set_termios(struct uart_port *port, struct ktermios *termios, const struct ktermios *old) {
+#else
+serialxr_set_termios(struct uart_port *port, struct ktermios *termios, struct ktermios *old) {
+#endif
+
     struct uart_xr_port *up = (struct uart_xr_port *) port;
     unsigned char cval;
     unsigned long flags;
