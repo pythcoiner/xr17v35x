@@ -6,7 +6,7 @@ obj-m += xr17v35x.o
 
 xrpci-objs :=	xr17v35x.o
 
-EXTRA_CFLAGS +=  -DDEBUG=1
+EXTRA_CFLAGS +=  -DDEBUG=0
 
 build:
 	$(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules

@@ -24,8 +24,7 @@
 *      Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 *
 *
-*	   Multiport Serial Driver for MaxLinear's PCI Family of UARTs (XR17V258/254/252/358/354/352/8358/4358/8354)
-*								  (XR17D158/154/152)
+*	   Multiport Serial Driver for MaxLinear's PCI Family
 *       ChangeLog:
 *	   for    	: LINUX 2.6.32 and newer (Tested on various kernel versions from 2.6.32 to 4.15)
 *	   date   	: July 2019
@@ -473,7 +472,7 @@ pci_default_setup(struct serial_private *priv,
 
     bar = FL_GET_BASE(board->flags);
     offset += idx * board->uart_offset;
-    //printk(KERN_INFO "Exar PCIe device 0x%x\n", priv->dev->device);
+    printk(KERN_INFO "Exar PCIe device 0x%x\n", priv->dev->device);
     if ((priv->dev->device == 0x4354 || priv->dev->device == 0x8354) && (idx >= 4)) {
         offset += 0x1000; // the ports on expansion device for 0x(4/8)354 sit at bar0+0x2000 offset.
         // So we need to add 0x1000 here as 4*0x400
@@ -1967,7 +1966,7 @@ serialxr_ioctl(struct uart_port *port, unsigned int cmd, unsigned long arg) {
             efr = serial_in(up, XR_17V35X_EXTENDED_EFR);
             efr |= 0x20;
             serial_out(up, XR_17V35X_EXTENDED_EFR, efr);
-            //printk(KERN_INFO "UART_EFR=0x%02x\n",serial_in(up, XR_17V35X_EXTENDED_EFR));
+            printk(KERN_INFO "UART_EFR=0x%02x\n",serial_in(up, XR_17V35X_EXTENDED_EFR));
 
             up->multidrop_mode = 2;//for enable multidrop auto mode
 
